@@ -6,16 +6,18 @@
 #include <vector>
 #include <string>
 
-#include <opencv2/core/core.hpp>           
-#include <opencv2/highgui/highgui.hpp>     
-#include <opencv2/imgproc/imgproc.hpp>  
+#include <opencv2/core/core.hpp>
+#include <opencv2/highgui/highgui.hpp>
+#include <opencv2/imgproc/imgproc.hpp>
+#include <opencv2/opencv.hpp>
+#include <opencv2/imgproc/types_c.h>
 
 //#include "create_blur.h"
 
 /////////////////////////////////// DEFINES ///////////////////////////////////
-//#define MAX_CLASSES		256		/* Max number of classes allowed */
-//#define MAX_SIGMA		2.5		/* max sigma used for the Gaussian blur settings */
-#define PI				3.14159265358979323846
+//#define MAX_CLASSES       256     /* Max number of classes allowed */
+//#define MAX_SIGMA     2.5     /* max sigma used for the Gaussian blur settings */
+#define PI              3.14159265358979323846
 // used to generate the synthetic blur from a given depth map
 //#define GEN_DEFOCUS_IMAGE
 
@@ -25,7 +27,7 @@
 // used to generate the textureless regions
 //#define GEN_TEXTURES
 #ifdef GEN_TEXTURES
-	#define GEN_HIGHPASS
+    #define GEN_HIGHPASS
 #endif
 
 // use this to define the use of the bias image to try and remove noise
@@ -41,13 +43,13 @@ using namespace cv;
 ////////////////////////////////// Typedefs //////////////////////////////////
 typedef struct
 {
-	string DataLog;
-	Mat Depth_Map;
-	vector<Mat> diff_Y;
-	vector<Mat> diff_Cr;
-	vector<Mat> diff_Cb;
-	int classes;
-	
+    string DataLog;
+    Mat Depth_Map;
+    vector<Mat> diff_Y;
+    vector<Mat> diff_Cr;
+    vector<Mat> diff_Cb;
+    int classes;
+
 } DFD_Thread_Vars;
 
 
@@ -62,7 +64,7 @@ void parseCSVFile(std::string parseFilename, std::vector<std::string> &vFocusFil
 void map3(string &DataLog, Mat &Depth_Map, vector<cv::Mat> &diff_Y, vector<cv::Mat> &diff_Cr, vector<cv::Mat> &diff_Cb, int classes);
 
 //#else
-	
+
 //void *map3(void *args);
 
 //#endif
@@ -76,4 +78,4 @@ void GridGraph_DArraySArray(int width, int height, int num_labels, std::vector<c
 void calcError(cv::Mat DepthMap, cv::Mat groundTruth, cv::Mat &errorMat, double &MSE, double &SNR, double &PSNR);
 Scalar getMSSIM(const cv::Mat& i1, const cv::Mat& i2);
 
-#endif	// end of DFD_H 
+#endif  // end of DFD_H

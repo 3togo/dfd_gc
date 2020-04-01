@@ -25,9 +25,9 @@ set(exe_name "dfd_gc_ex")
 
 # This looks for an environment variable called PLATFORM.  This can be used to point
 # cmake to various locations based on the individual machines that the code is complied on
-set(PLATFORM "$ENV{PLATFORM}" CACHE INTERNAL "Copied from environment variable")
-message("Platform: " ${PLATFORM})
-
+#set(PLATFORM "$ENV{PLATFORM}" CACHE INTERNAL "Copied from environment variable")
+#message("Platform: " ${PLATFORM})
+set(PLATFORM "MainGear")
 
 if(${PLATFORM} STREQUAL "Laptop")
     set(COMMON_ROOT "D:/Common")
@@ -40,11 +40,12 @@ elseif(${PLATFORM} STREQUAL "HPC")
     set(DFD_COMMON_ROOT "$HOME/Projects/dfd_common")
 else()
     set(COMMON_ROOT "D:/Common")
-    set(DFD_COMMON_ROOT "D:/Projects/dfd_common")	
+    set(DFD_COMMON_ROOT "D:/Projects/dfd_common")
 endif()
 
-include(${COMMON_ROOT}/cmake_utils/use_cpp_11.cmake)
-include(${COMMON_ROOT}/cmake_utils/use_sse_avx.cmake)
+set(USE_AVX_INSTRUCTIONS ON CACHE BOOL "Use AVX instructions")
+#include(${COMMON_ROOT}/cmake_utils/use_cpp_11.cmake)
+#include(${COMMON_ROOT}/cmake_utils/use_sse_avx.cmake)
 
 
 # look for any *.c and *.cpp files
@@ -66,9 +67,10 @@ message(" ")
 
 # find OpenCV
 find_package(OpenCV REQUIRED)
+
 if (OpenCV_FOUND)
-	set(project_includes ${project_includes} ${OpenCV_INCLUDE_DIRS})
-    
+    set(project_includes ${project_includes} ${OpenCV_INCLUDE_DIRS})
+
     message(" ")
     message("--------------------------------------------------------")
     message("DfD Graph Cuts Project Includes: ")
@@ -77,13 +79,13 @@ if (OpenCV_FOUND)
     endforeach()
     message("--------------------------------------------------------")
     message(" ")
-    
+
     include_directories(${project_includes})
-	add_executable(${exe_name} ${SOURCES})
-	target_link_libraries(${exe_name} ${OpenCV_LIBS})
+    add_executable(${exe_name} ${SOURCES})
+    target_link_libraries(${exe_name} ${OpenCV_LIBS})
 
 else()
-	message("OpenCV not found, so we won't build the project.")
+    message("OpenCV not found, so we won't build the project.")
 endif()
 
 if(WIN32)
