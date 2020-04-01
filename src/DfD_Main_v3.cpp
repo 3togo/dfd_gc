@@ -19,12 +19,12 @@
 
 // Custom includes
 //#include "create_blur.h"
-//#include "get_platform.h"
+#include "get_platform.h"
 #include "getopt.h"
 #include "DfD.h"
 #include "support_functions.h"
-//#include "get_current_time.h"
-//#include "file_parser.h"
+#include "get_current_time.h"
+#include "file_parser.h"
 #include "calc_dfd_error.h"
 //#include "path_check.h"
 
